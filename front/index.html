@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PassDot</title>
+</head>
+<body>
+    <h1>PassDot</h1>
+    <h2>Your secure password managed based on Blockchain</h2>
+    <div id="divWallet">
+        <button type="button" id="btnMetamask">Connect to wallet</button>
+        <button type="button" id="btnDisconnect" style="display:none; color: red">Disconnect</button>
+        <p id="addressPara" style="color:red">Disconnected</p>
+    </div>
+    <p></p>
+    <form id="addForm">
+        <fieldset id="addPassword">
+        <label for="inpWebsite">Website</label>
+        <input type="text" id="inpWebsite">
+        <label for="inpUser">User</label>
+        <input type="text" id="inpUser">
+        <label for="inpPassword">Password</label>
+        <input type="text" id="inpPassword">
+        <button type="button" id="btnAdd">Add</button>
+        </fieldset>
+    </form>
+    <h3>Your passwords</h3>
+    <fieldset id="searchPassword">
+        <label for="inpSearch">Website</label>
+        <input type="text" id="inpSearch">
+    </fieldset>
+    <ul id="passList"></ul>
+</body>
+<script src="script.js"></script>
+</html>
