@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PassDot</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/eth-sig-util/3.0.1/eth-sig-util.min.js"></script>
 </head>
 <body>
     <h1>PassDot</h1>
     <h2>Your secure password managed based on Blockchain</h2>
     <div id="divWallet">
         <button type="button" id="btnMetamask">Connect to wallet</button>
-        <button type="button" id="btnDisconnect" style="display:none; color: red">Disconnect</button>
+        <button type="button" id="btnPublish" style="display:none; color: red">Publish PubKey</button>
         <p id="addressPara" style="color:red">Disconnected</p>
     </div>
     <p></p>
@@ -30,7 +31,11 @@
         <label for="inpSearch">Website</label>
         <input type="text" id="inpSearch">
     </fieldset>
-    <ul id="passList"></ul>
+    <table id="passList">
+        <th>Website</th>
+        <th>User</th>
+        <th>Password</th>
+    </table>
 </body>
-<script src="script.js"></script>
+<script type="module" src="script.js"></script>
 </html>
