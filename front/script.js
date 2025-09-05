@@ -13,6 +13,7 @@ const addressPara = document.getElementById("addressPara");
 
 let userAccount;
 let pubKey;
+let allPasswordRows = []; // Array para mantener todas las filas de contraseñas
 
 const connectWallet = async () => {
     try {
@@ -61,19 +62,64 @@ const decryptMessage = async (encryptedData) => {
 };
 
 btnMetamask.addEventListener("click", connectWallet); 
+
 btnAdd.addEventListener('click', async () => {
     let message = inpWebsite.value+"|"+inpUser.value+"|"+inpPassword.value+"|";
 
     const encrypted = await encryptMessage(message);    
     const decrypted = await decryptMessage(encrypted);
-    
+
     if (decrypted) {
         const content = decrypted.split("|");
         console.log(content);
         const decMessage = document.createElement("tr");
+        decMessage.setAttribute('id',content[0])
         decMessage.innerHTML = `<td>${content[0]}</td><td>${content[1]}</td><td>${content[2]}</td>` ;
         passList.appendChild(decMessage);
+        
+        // Agregar la nueva fila al array de todas las filas
+        allPasswordRows.push(decMessage.cloneNode(true));
     } else {
         alert("Decryption failed. Cannot display message.");
+    }
+})
+
+inpSearch.addEventListener("input", () => {
+    try {
+        let searchTerm = inpSearch.value.toLowerCase().trim();
+        
+        // Guardar las cabeceras antes de limpiar
+        const headers = Array.from(passList.querySelectorAll('th'));
+        
+        // Limpiar la lista pero preservar la estructura
+        passList.innerHTML = "";
+        
+        // Restaurar las cabeceras
+        headers.forEach(header => passList.appendChild(header));
+        
+        if (searchTerm === "") {
+            // Si no hay término de búsqueda, mostrar todas las filas del array
+            allPasswordRows.forEach(row => {
+                const clonedRow = row.cloneNode(true);
+                passList.appendChild(clonedRow);
+            });
+        } else {
+            // Filtrar filas del array que coincidan con el término de búsqueda
+            const filteredRows = allPasswordRows.filter(row => {
+                const websiteTd = row.querySelector('td:first-child');
+                if (websiteTd) {
+                    return websiteTd.textContent.toLowerCase().includes(searchTerm);
+                }
+                return false;
+            });
+            
+            // Mostrar las filas filtradas (clonadas)
+            filteredRows.forEach(row => {
+                const clonedRow = row.cloneNode(true);
+                passList.appendChild(clonedRow);
+            });
+        }
+    } catch (err) {
+        console.error("Error en búsqueda:", err);
     }
 })
